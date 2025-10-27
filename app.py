@@ -33,6 +33,11 @@ def chatbot():
 def admin_page():
     return render_template("admin.html")
 
+# ADD THIS HEALTH CHECK ENDPOINT HERE
+@app.route("/health")
+def health():
+    return "OK", 200
+
 @app.route("/api/chat", methods=["POST"])
 def chat():
     data = request.json
