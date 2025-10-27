@@ -1,0 +1,100 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["hi","hii", "hello", "hey", "good morning", "good evening"],
+      "responses": ["Hello! I'm your Smart Campus Assistant.", "Hi there! How can I help you today?"]
+    },
+    {
+      "tag": "exam_schedule",
+      "patterns": ["when is the exam", "exam date", "test timetable", "exam schedule"],
+      "responses": ["Exams start from November 15th. Check the notice board for full details."]
+    },
+    {
+      "tag": "attendance",
+      "patterns": ["attendance percentage", "how many classes attended", "attendance details", "am I eligible for exam"],
+      "responses": ["You can view your attendance in the student portal under 'Attendance'."]
+    },
+    {
+      "tag": "hod_info",
+      "patterns": ["hod","who is the hod", "hod of cse", "head of department"],
+      "responses": ["The HOD of CSE is Dr. Radhika Sharma. Email: hod-cse@campus.edu"]
+    },
+    {
+      "tag": "events",
+      "patterns": ["events today", "campus events", "seminar today"],
+      "responses": ["Today’s event: Guest lecture at 3 PM in Hall A by Prof. Anil Verma. Don’t miss it!"]
+    },
+    {
+      "tag": "library_info",
+      "patterns": ["library timing", "library hours", "when does library open", "library schedule"],
+      "responses": ["Library timings are 8 AM to 8 PM, Monday to Saturday. Contact: librarian@campus.edu"]
+    },
+    {
+      "tag": "transport_info",
+      "patterns": ["bus timing", "shuttle service", "campus transport", "transport info"],
+      "responses": ["Campus buses run from 7 AM to 10 PM. For route details, contact transport@campus.edu"]
+    },
+    {
+      "tag": "hostel_info",
+      "patterns": ["hostel contact", "hostel warden", "hostel info", "room allocation"],
+      "responses": ["Hostel Warden: Mr. Suresh Kumar. Email: warden@campus.edu, Phone: +91 9876543210"]
+    },
+    {
+      "tag": "canteen_info",
+      "patterns": ["canteen menu", "canteen timing", "cafeteria info", "food availability"],
+      "responses": ["Canteen opens from 8 AM to 8 PM. Today’s special: Veg Biryani and Sandwiches. Contact: canteen@campus.edu"]
+    },
+    {
+      "tag": "club_info",
+      "patterns": ["coding club", "robotics club", "music club", "join clubs", "campus clubs"],
+      "responses": ["Coding Club President: Priya Singh, Email: codingclub@campus.edu. Next meetup: Friday 4 PM in Lab 101."]
+    },
+    {
+      "tag": "exam_results",
+      "patterns": ["my exam results", "grades", "marks", "scorecard"],
+      "responses": ["You can check your results on the student portal under 'Results'. For queries, email exams@campus.edu"]
+    },
+    {
+      "tag": "fees_info",
+      "patterns": ["fee due", "tuition fee", "fee payment", "fee details"],
+      "responses": ["Tuition fees for this semester are due by November 10th. Contact accounts@campus.edu for queries."]
+    },
+    {
+      "tag": "placement_cell",
+      "patterns": ["placements", "internships", "training cell", "placement info"],
+      "responses": ["Placement Officer: Mr. Rohit Mehra. Email: placements@campus.edu. Upcoming drive: Nov 20th."]
+    },
+    {
+      "tag": "transport_route",
+      "patterns": ["bus route", "shuttle stops", "how to reach campus"],
+      "responses": ["Campus bus routes are available at transport@campus.edu. Main stops: City Center, Railway Station, Tech Park."]
+    },
+    {
+      "tag": "medical_aid",
+      "patterns": ["medical help", "campus hospital", "doctor on campus", "health center"],
+      "responses": ["Campus Health Center: Dr. Meera Nair. Email: healthcenter@campus.edu, Phone: +91 9123456789"]
+    },
+    {
+      "tag": "technical_support",
+      "patterns": ["wifi not working", "system issue", "laptop problem", "IT help"],
+      "responses": ["For IT issues, contact Technical Support at ithelpdesk@campus.edu or call +91 9988776655."]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["thanks", "thank you", "thank u"],
+      "responses": ["You're welcome!", "Glad I could help!"]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["bye", "goodbye", "see you", "quit"],
+      "responses": ["Goodbye! Have a great day!"]
+    },
+    {
+  "tag": "fallback",
+  "patterns": [],
+  "responses": ["I'm not sure I understand that.","Can you please rephrase your question?", "I'm not aware of that yet, but I’ll try to learn!" ]
+}
+
+  ]
+}

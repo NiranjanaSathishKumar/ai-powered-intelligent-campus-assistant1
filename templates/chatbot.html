@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 style="text-align:center;">Smart Campus Chatbot</h2>
+<div id="chat-container" style="border:1px solid #ddd; padding:15px; height:400px; overflow:auto; background:white; border-radius:10px;">
+</div>
+
+<div style="margin-top:15px; text-align:center;">
+  <input id="user-input" type="text" placeholder="Type your message..." style="width:70%; padding:10px; border-radius:8px; border:1px solid #ccc;">
+  <button id="send-btn">Send</button>
+  <button id="voice-btn">🎤 Speak</button>
+</div>
+
+<script>
+const chatContainer = document.getElementById("chat-container");
+const input = document.getElementById("user-input");
+const sendBtn = document.getElementById("send-btn");
+const voiceBtn = document.getElementById("voice-btn");
+
+function appendMessage(sender, text) {
+  const div = document.createElement("div");
+  div.style.margin = "8px 0";
+  div.style.textAlign = sender === "user" ? "right" : "left";
+  div.innerHTML = `<b>${sender === "user" ? "You" : "Bot"}:</b> ${text}`;
+  chatContainer.appendChild(div);
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+async function sendMessage(message) {
+  appendMessage("user", message);
+  input.value = "";
+  const res = await fetch("/api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message }),
+  });
+  const data = await res.json();
+  appendMessage("bot", data.bot_response);
+  if ('speechSynthesis' in window) {
+    const speech = new SpeechSynthesisUtterance(data.bot_response);
+    speech.lang = 'en-US';
+    window.speechSynthesis.speak(speech);
+  }
+}
+
+// send button
+sendBtn.onclick = () => {
+  if (input.value.trim()) sendMessage(input.value.trim());
+};
+
+// enter key
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") sendBtn.click();
+});
+
+// 🎤 voice recognition
+if ('webkitSpeechRecognition' in window) {
+  const recognition = new webkitSpeechRecognition();
+  recognition.continuous = false;
+  recognition.lang = "en-US";
+  recognition.interimResults = false;
+
+  recognition.onresult = function(event) {
+    const transcript = event.results[0][0].transcript;
+    input.value = transcript;
+    sendMessage(transcript);
+  };
+
+  recognition.onerror = function(event) {
+    console.error("Speech recognition error:", event.error);
+    alert("Speech recognition error: " + event.error);
+  };
+
+  voiceBtn.onclick = () => {
+    recognition.start();
+  };
+} else {
+  voiceBtn.disabled = true;
+  voiceBtn.title = "Speech recognition not supported on this browser.";
+}
+</script>
+{% endblock %}

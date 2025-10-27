@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 style="text-align:center;">📊 Admin Dashboard</h2>
+<p style="text-align:center;">Overview of chatbot activity and user interactions.</p>
+
+<div style="max-width:900px;margin:auto;">
+  <canvas id="intentChart" height="150"></canvas>
+  <canvas id="dayChart" height="150" style="margin-top:30px;"></canvas>
+
+  <h3 style="margin-top:40px;">Recent Conversations</h3>
+  <table id="logTable" border="1" cellspacing="0" cellpadding="5" style="width:100%; border-collapse:collapse; text-align:left;">
+    <thead>
+      <tr style="background:#4b4bff;color:white;">
+        <th>Timestamp</th>
+        <th>User Message</th>
+        <th>Bot Response</th>
+        <th>Intent</th>
+        <th>Conf.</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+async function loadDashboard() {
+  try {
+    const aRes = await fetch("/api/analytics");
+    const aData = await aRes.json();
+    const lRes = await fetch("/api/logs");
+    const logs = await lRes.json();
+
+    // --- INTENT CHART ---
+    const intents = Object.keys(aData.per_intent || {});
+    const counts = Object.values(aData.per_intent || {});
+    new Chart(document.getElementById("intentChart"), {
+      type: "bar",
+      data: {
+        labels: intents,
+        datasets: [{ label: "Messages per Intent", data: counts, backgroundColor: "#4b4bff88" }]
+      },
+      options: { plugins: { legend: { display: false } } }
+    });
+
+    // --- DAY CHART ---
+    const days = Object.keys(aData.per_day || {});
+    const dayCounts = Object.values(aData.per_day || {});
+    new Chart(document.getElementById("dayChart"), {
+      type: "line",
+      data: {
+        labels: days,
+        datasets: [{ label: "Messages per Day", data: dayCounts, fill: false, borderColor: "#4b4bff", tension: 0.2 }]
+      }
+    });
+
+    // --- LOG TABLE ---
+    const tbody = document.querySelector("#logTable tbody");
+    tbody.innerHTML = "";
+    for (const log of logs) {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${log.timestamp}</td>
+        <td>${log.user_message}</td>
+        <td>${log.bot_response}</td>
+        <td>${log.intent}</td>
+        <td>${log.confidence.toFixed(2)}</td>
+      `;
+      tbody.appendChild(tr);
+    }
+  } catch (err) {
+    console.error("Dashboard error:", err);
+  }
+}
+loadDashboard();
+</script>
+{% endblock %}
