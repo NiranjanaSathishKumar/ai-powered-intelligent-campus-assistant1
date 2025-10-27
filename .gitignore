@@ -1,0 +1,7 @@
+echo __pycache__/ > .gitignore
+echo *.pyc >> .gitignore
+echo instance/ >> .gitignore
+echo *.db >> .gitignore
+echo chat_model_lstm.h5 >> .gitignore
+echo tokenizer.pkl >> .gitignore
+echo label_encoder.pkl >> .gitignore
